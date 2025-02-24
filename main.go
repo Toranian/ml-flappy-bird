@@ -86,47 +86,6 @@ func evolve(population []*Bird) []*Bird {
 	return newPop
 }
 
-// func evolve(population []*Bird) []*Bird {
-// 	// Sort by fitness (descending order)
-// 	sort.Slice(population, func(i, j int) bool {
-// 		return population[i].Fitness > population[j].Fitness
-// 	})
-//
-// 	// Select the top-performing birds (elitism)
-// 	eliteCount := int(math.Floor(float64(len(population)) * 0.2)) // Keep top 20% elite birds
-// 	if eliteCount < 1 {
-// 		eliteCount = 1
-// 	}
-// 	elites := population[:eliteCount]
-//
-// 	// Create the next generation
-// 	newPop := make([]*Bird, 0, len(population)) // Preallocate slice
-//
-// 	// Add elites directly to the next generation
-// 	newPop = append(newPop, elites...)
-//
-// 	// Fill the remaining population with offspring from crossover and mutation
-// 	for len(newPop) < len(population) {
-// 		parentA := elites[rand.Intn(len(elites))]
-// 		var parentB *Bird
-//
-// 		// Ensure different parents are selected
-// 		for {
-// 			parentB = elites[rand.Intn(len(elites))]
-// 			if parentB != parentA || len(elites) == 1 {
-// 				break
-// 			}
-// 		}
-//
-// 		// Crossover and mutate new child
-// 		child := crossover(parentA, parentB)
-// 		mutate(child)
-// 		newPop = append(newPop, child)
-// 	}
-//
-// 	return newPop
-// }
-
 // Crossover: Mix two parents to create a new bird
 func crossover(parentA, parentB *Bird) *Bird {
 	child := &Bird{Brain: n.CreateNetwork(5, 8, 1)}
@@ -158,9 +117,8 @@ func drawGame() {
 	// Draw the bird
 	for i := range birds {
 		if birds[i].Alive {
-			rl.DrawCircle(int32(birds[i].X), int32(birds[i].Y), birds[i].Size, rl.Yellow)
+			rl.DrawCircle(int32(birds[i].X), int32(birds[i].Y), birds[i].Size, rl.Orange)
 		}
-		rl.DrawCircle(int32(birds[0].X), int32(birds[0].Y), birds[i].Size, rl.Purple)
 	}
 
 	// Draw the pipes
@@ -173,12 +131,14 @@ func drawGame() {
 	}
 
 	// Stats
-	for count := range birds {
-		rl.DrawText(fmt.Sprintf("Bird %d fitness: %f", count+1, birds[count].Fitness), 20, int32(20*count+1), 15, rl.Black)
-	}
+	// for count := range birds {
+	// 	rl.DrawText(fmt.Sprintf("Bird %d fitness: %f", count+1, birds[count].Fitness), 20, int32(20*count+1), 15, rl.Black)
+	// }
 
 	rl.DrawText(fmt.Sprintf("%d", score), ScreenWidth-60, 20, 30, rl.Black)
 	rl.DrawText(fmt.Sprintf("%d", highScore), ScreenWidth-60, 60, 20, rl.Black)
+	diff := time.Now().Sub(start)
+	rl.DrawText(fmt.Sprintf("Generation: %d \nTime: %.2fs", generations, diff.Seconds()), 20, 20, 20, rl.Black)
 
 }
 
@@ -245,7 +205,6 @@ func updateGame() {
 		if activate >= 0.5 {
 			birds[i].Velocity = FlapStrength
 		}
-
 	}
 
 	for i := range pipes {
@@ -278,7 +237,6 @@ func updateGame() {
 
 		generations += 1
 		resetGame()
-		// fmt.Println("Generations: ", generations)
 	}
 }
 

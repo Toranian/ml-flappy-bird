@@ -13,16 +13,17 @@ import (
 )
 
 const (
+	GameSpeed    = 1.5
 	ScreenWidth  = 800
 	ScreenHeight = 600
-	Gravity      = 0.5 * 2
-	FlapStrength = -6 * 2
+	Gravity      = 0.5 * GameSpeed
+	FlapStrength = -6 * GameSpeed
 	PipeWidth    = 70
 	PipeGap      = 200
-	PipeSpeed    = 3 * 2
+	PipeSpeed    = 3 * GameSpeed
 	PipeSpacing  = 300
-	ScrollSpeed  = 1 * 2
-	MaxSpeed     = 5.0
+	ScrollSpeed  = 1 * GameSpeed
+	MaxSpeed     = 5.0 * GameSpeed
 	NumBirds     = 30
 )
 

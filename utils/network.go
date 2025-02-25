@@ -64,5 +64,4 @@ func (nn *NeuralNetwork) Predict(inputs []float64) float64 {
 
 	// Probability of flapping
 	return sigmoid(output)
-
 }

@@ -191,8 +191,8 @@ func updateGame() {
 			}
 		}
 
-		rl.DrawLine(30, int32(birds[i].Y), int32(pipes[0].X), int32(pipes[0].GapY), rl.Purple)
-		rl.DrawLine(30, int32(birds[i].Y), int32(pipes[0].X), int32(pipes[0].GapY+PipeGap), rl.Red)
+		// rl.DrawLine(30, int32(birds[i].Y), int32(pipes[0].X), int32(pipes[0].GapY), rl.Purple)
+		// rl.DrawLine(30, int32(birds[i].Y), int32(pipes[0].X), int32(pipes[0].GapY+PipeGap), rl.Red)
 
 		input := []float64{
 			float64(birds[i].Velocity),
@@ -245,8 +245,8 @@ func resetGame() {
 
 	if score > highScore {
 		highScore = score
-		score = 0
 	}
+	score = 0
 
 	diff := time.Now().Sub(start)
 	fmt.Printf("Generation: %d (%.2fs)\n", generations, diff.Seconds())
